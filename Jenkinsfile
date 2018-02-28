@@ -3,17 +3,17 @@ pipeline {
   stages {
     stage('Fluffy Build') {
       steps {
-        sh './Jenkins/build.sh'
+        sh './jenkins/build.sh'
       }
     }
     stage('Fluffy Test') {
       steps {
-        sh ' ./Jenkins/test-all.sh'
+        sh ' ./jenkins/test-all.sh'
       }
     }
     stage('Fluffy Deploy') {
       steps {
-        sh './Jenkins/deploy.sh staging'
+        sh './jenkins/deploy.sh staging'
       }
     }
   }
