@@ -28,15 +28,9 @@ We'll only use pipeline-intro-lab in this course.
 
 ## Part One
 
-> Purpose:
-
-### Section 1: Create a Simple Pipeline
-
-In this section we will:
-*	Create a new Pipeline Job
+> Goals:
 *	Create and run a Pipeline in the Blue Ocean Editor
-*	Review Pipeline run details
-*	Edit a Pipeline
+*	Edit a Pipeline in the Blue Ocean Editor
 
 #### Setup Git Access
 
@@ -62,6 +56,8 @@ Save the pipeline in master branch.
 
 The pipeline will run and you can now see the Jenkinsfile in the repo.  Now we'll make it actually do something.  Click pencil icon to the left of the branch to return to the visual editor
 
+#### Edit a Pipeline
+
 Make the following changes to your stages:
 * **Fluffy Test** - Delete the placeholder step and add two steps
   * Shell script: sleep 5
@@ -75,20 +71,18 @@ Go back to the Fluffy Deploy stage in the GUI and see the edited step.  This cha
 
 ### Section 2  Create a Pipeline with Parallel Stages
 
-> Purpose:
-
-In this section we will
-"	Create and run a Pipeline in a feature branch
-"	Add artifact archiving and test result publishing
-"	Add parallel stages
-"	Migrate the Pipeline to the master branch
+> Goals:
+*	Create and run a Pipeline in a feature branch
+*	Add artifact archiving and test result publishing
+*	Add parallel stages
+*	Migrate the Pipeline to the master branch
 
 Open your pipeline in the Blue Ocean Visual Editor and delete all steps for all the stages.  It will show errors; ignore them.
 
 Make the following additions to your stages:
-* cFluffy Build - Shell script: `./jenkins/build.sh`
-* Fluffy Test - Shell script: `./jenkins/test-all.sh`
-* Fluffy Deploy - Shell script: `./jenkins/deploy.sh staging`
+* **Fluffy Build** - Shell script: `./jenkins/build.sh`
+* **Fluffy Test** - Shell script: `./jenkins/test-all.sh`
+* **Fluffy Deploy** - Shell script: `./jenkins/deploy.sh staging`
 Save and run the Pipeline, check the output in Blue Ocean
 
 Let's move the pipeline to a branch so we can continue development without overwriting our working job.  Open the Pipeline in the Blue Ocean editor, click "Save", add a description then select "Commit to new branch" and call that branch simple-pipeline:
@@ -98,8 +92,8 @@ The branch will be automatically created in Git and populated from the master.
 Now we'll add steps to archive artifacts and publish test results.
 
 Add the following steps to your stages:
-"	Fluffy Build - Archive the artifacts: target/*.jar
-"	Fluffy Test - Publish JUint test result report: target/**/TEST*.xml
+*	**Fluffy Build** - Archive the artifacts: `target/*.jar`
+*	**Fluffy Test** - Publish JUint test result report: `target/**/TEST*.xml`
 
 Save the Pipeline in simple-pipeline and run; check the output in Blue Ocean.
 
@@ -107,14 +101,14 @@ Now we'll add parallel stages.  Adding parallel stages greatly reduces run time 
 
 Add four parallel stages to Fluffy Test by clicking on plus (+) sign beneath the existing stage.  Name the stages and create the steps in each as listed below:
 
-"	Backend -
-o	Shell script: ./jenkins/test-backend.sh
-o	Publish Junit test result report: target/surefire-reports/**/TEST*.xml
-"	Frontend -
-o	Shell script: ./jenkins/test-frontend.sh
-o	Publish Junit test result report: target/test-results/**/TEST*.xml
-"	Performance - Shell script: ./jenkins/test-performance.sh
-"	Static - Shell script: ./jenkins/test-static.sh
+* **Backend**
+  *	Shell script: `./jenkins/test-backend.sh`
+  *	Publish Junit test result report: `target/surefire-reports/**/TEST*.xml`
+*	**Frontend**
+  *	Shell script: `./jenkins/test-frontend.sh`
+  *	Publish Junit test result report: `target/test-results/**/TEST*.xml`
+*	**Performance** - Shell script: `./jenkins/test-performance.sh`
+*	**Static** - Shell script: `./jenkins/test-static.sh`
 
 Save the Pipeline in simple-pipeline and run; check the output in Blue Ocean. Notice the total execution time compared to the much simpler versions executed earlier.
 
@@ -216,7 +210,7 @@ In the Blue Ocean Code editor add a string parameter called DEPLOY_TO with a val
         string(name: 'DEPLOY_TO', defaultValue: 'dev', description: 'Deploy where')
     }
 
-Now update the shell script ./jenkins/deploy.sh step to use the parameter instead of the hardcoded value staging:
+Now update the shell script `./jenkins/deploy.sh` step to use the parameter instead of the hardcoded value staging:
 
 `sh "./jenkins/deploy.sh ${params.DEPLOY_TO}"`
 
