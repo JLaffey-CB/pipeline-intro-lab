@@ -1,10 +1,16 @@
 # Pipeline Workshop
 
+
+### VirtualBox Setup
 Setup:  You must have Virtualbox 5.2.6 & Vagrant 2.0.2 installed.
 
 Download the following file (1GB!) to your environment: https://drive.google.com/open?id=1KYpeDQHvPc4Mk4q4fkSCZ-Y04hXSOS5s
 
 Unzip the file cloudbees-training-pipeline-intro.zip and CD into the cloudbees-training-pipeline-intro folder.  Run 'vagrant up' to start the environment.
+
+### Docker Setup
+
+
 
 The training environment consists of three servers:
 1. [Jenkins Master](http://localhost:5000) username/password (butler/butler)
@@ -127,15 +133,17 @@ We need to create a new branch to work in.  Open the Jenkinsfile in the Blue Oce
 1. Edit the Pipeline's agent to use Node `java7` (this is included in the lab environment.)
 1. Save and run the Pipeline.  In the logs you'll see it now always runs on the node named `jdk7-node`.
 
-We can also control where individual stages execute.  Under each of the stages set the node to `java8`.  Under the Fluffy Build stage add a step to stash files: Name= `Java 8`, Includes = `target/**` as shown:
+We can also control where individual stages execute.  Under each of the stages set the node to `java8`.  Under the Fluffy Build stage add a step to stash files:
+
+Name= `Java 8`, Includes = `target/**` as shown:
 
 Using the Code Pipeline Editor add a step at the start of each of the Test and Deploy stages to unstash the files.
 
 Now set the parallel steps to execute on different agents to improve performance.  We'll double the workload but should only see a marginal increase in execution time.  In the Pipeline Code Editor (⌘-s) rename the existing Fluffy Test stages to xxJava7 (e.g. BackendJava7).  Add four more parallel stages named xxJava8 (e.g. BackendJava8).
 
 For each of the new Test stages
-"	set to run on the corresponding node
-"	unstash the files where needed for each node
+1. set to run on the corresponding node
+1. unstash the files where needed for each node
  (Note: a simple way to do this is make the change once in the Visual Editor then use the code editor to copy those changes.)
 
 Now update Fluffy Deploy to use node java7 and unstash the appropriate files.  Save your changes and run the Pipeline.  Note the duration: it has likely gone down even though we've added more tasks and doubled the stages.  See Appendix C for complete solution.
@@ -147,9 +155,9 @@ Now update Fluffy Deploy to use node java7 and unstash the appropriate files.  S
 > Purpose:
 
 In this section we will:
-"	Wait for user input before deploying
-"	Add a checkpoint from which the Pipeline can be restarted
-"	Migrate the Pipeline to the master branch
+1.	Wait for user input before deploying
+1.	Add a checkpoint from which the Pipeline can be restarted
+1.	Migrate the Pipeline to the master branch
 
 It's often useful to include a gate in a Pipeline to get user input.  This could be to approve a build for final deployment, specify an environment where the build should happen or other times human interaction is needed.  In this exercise we'll wait for user approval before proceeding with the deployment.
 
@@ -168,10 +176,12 @@ Note: Checkpoints can be inefficient as they hold agent resources.  Use only whe
 
 ### Section 5 The Sexy Extras!
 
+> Purpose:
+
 In this section we will:
-"	Move some of the steps to post sections
-"	Add a when directive to skip deployment when not running on the master branch
-"	Add and use a parameter
+*	Move some of the steps to post sections
+*	Add a when directive to skip deployment when not running on the master branch
+*	Add and use a parameter
 
 There are more advanced function available in Pipelines that let you build intuitive and flexible jobs, taking steps only when necessary and keeping you informed of job progress.  Leverage these options to really make your Pipelines automated and streamline your CI/CD process.
 
