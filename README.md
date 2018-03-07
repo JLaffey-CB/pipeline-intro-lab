@@ -29,8 +29,8 @@ We'll only use pipeline-intro-lab in this course.
 ## Part One
 
 > Goals:
-*	Create and run a Pipeline in the Blue Ocean Editor
-*	Edit a Pipeline in the Blue Ocean Editor
+> *	Create and run a Pipeline in the Blue Ocean Editor
+> *	Edit a Pipeline in the Blue Ocean Editor
 
 #### Setup Git Access
 
@@ -72,10 +72,10 @@ Go back to the Fluffy Deploy stage in the GUI and see the edited step.  This cha
 ### Section 2  Create a Pipeline with Parallel Stages
 
 > Goals:
-*	Create and run a Pipeline in a feature branch
-*	Add artifact archiving and test result publishing
-*	Add parallel stages
-*	Migrate the Pipeline to the master branch
+> *	Create and run a Pipeline in a feature branch
+> *	Add artifact archiving and test result publishing
+> *	Add parallel stages
+> *	Migrate the Pipeline to the master branch
 
 Open your pipeline in the Blue Ocean Visual Editor and delete all steps for all the stages.  It will show errors; ignore them.
 
@@ -116,14 +116,12 @@ Now migrate the Pipeline to the master branch by saving it and choosing "Commit 
 
 ### Section 3 Multi-environment Pipeline
 
-> Purpose:
-
-In this section we will:
-*	Create and run a Pipeline in another feature branch
-*	Control the agent where the Pipeline or steps execute
-*	Stash and unstash files from one stage to the next
-*	Wait for user input before proceeding
-*	Add a checkpoint from which the Pipeline can be restarted
+> Goals:
+> *	Create and run a Pipeline in another feature branch
+> *	Control the agent where the Pipeline or steps execute
+> *	Stash and unstash files from one stage to the next
+> *	Wait for user input before proceeding
+> *	Add a checkpoint from which the Pipeline can be restarted
 
 We need to create a new branch to work in.  Open the Jenkinsfile in the Blue Ocean Visual Editor and save it to a new branch called multi-env-pipeline.
 
@@ -149,12 +147,10 @@ Now update Fluffy Deploy to use node java7 and unstash the appropriate files.  S
 
 ### Section 4
 
-> Purpose:
-
-In this section we will:
-1.	Wait for user input before deploying
-1.	Add a checkpoint from which the Pipeline can be restarted
-1.	Migrate the Pipeline to the master branch
+> Goals:
+> *	Wait for user input before deploying
+> *	Add a checkpoint from which the Pipeline can be restarted
+> * Migrate the Pipeline to the master branch
 
 It's often useful to include a gate in a Pipeline to get user input.  This could be to approve a build for final deployment, specify an environment where the build should happen or other times human interaction is needed.  In this exercise we'll wait for user approval before proceeding with the deployment.
 
@@ -174,11 +170,9 @@ Note: Checkpoints can be inefficient as they hold agent resources.  Use only whe
 ### Section 5 The Sexy Extras!
 
 > Purpose:
-
-In this section we will:
-*	Move some of the steps to post sections
-*	Add a when directive to skip deployment when not running on the master branch
-*	Add and use a parameter
+> *	Move some of the steps to post sections
+> *	Add a when directive to skip deployment when not running on the master branch
+> *	Add and use a parameter
 
 There are more advanced function available in Pipelines that let you build intuitive and flexible jobs, taking steps only when necessary and keeping you informed of job progress.  Leverage these options to really make your Pipelines automated and streamline your CI/CD process.
 
@@ -186,11 +180,11 @@ Post Sections: Post sections define additional steps to run when a Pipeline or s
 
 We'll add a post section to move the archiving, stashing and JUnit tests to make them conditional depending on the result of the stage.  First save the Pipeline to a new branch called finished-pipeline.  Using Code Pipeline editor (the Visual Editor does not support post steps yet) edit the stages as below:
 
-"	Fluffy Build stage:
-o	Move Archive the artifacts with a post success condition
-o	Move Stash with a post success condition
-"	Fluffy Test stage:
-o	Move Junit test results to a post always condition in after each state (four total)
+*	Fluffy Build stage:
+  *	Move Archive the artifacts with a post success condition
+  *	Move Stash with a post success condition
+*	Fluffy Test stage:
+  *	Move Junit test results to a post always condition in after each state (four total)
 
 Save your changes to the finished-pipeline branch and run.
 
