@@ -1,6 +1,5 @@
 # Pipeline Workshop
 
-
 ### VirtualBox Setup
 Setup:  You must have Virtualbox 5.2.6 & Vagrant 2.0.2 installed.
 
@@ -9,7 +8,6 @@ Download the following file (1GB!) to your environment: https://drive.google.com
 Unzip the file cloudbees-training-pipeline-intro.zip and CD into the cloudbees-training-pipeline-intro folder.  Run 'vagrant up' to start the environment.
 
 ### Docker Setup
-
 
 
 The training environment consists of three servers:
@@ -23,7 +21,10 @@ The Gitserver has two repos:
 
 We'll only use pipeline-intro-lab in this course.
 
-In your browser navigate to http://localhost:5000 to access the Jenkins.  Goto the Jenkins master and add a license. (The demo env expires soon, need to fix this.)  Log into Jenkins and click Open Blue Ocean
+##### The demo env expires soon (need to fix this)  
+1. In your browser navigate to http://localhost:5000
+1. Goto the Jenkins master and add a license.
+1. Log into Jenkins and click Open Blue Ocean
 
 ## Part One
 
@@ -32,26 +33,28 @@ In your browser navigate to http://localhost:5000 to access the Jenkins.  Goto t
 ### Section 1: Create a Simple Pipeline
 
 In this section we will:
-"	Create a new Pipeline Job
-"	Create and run a Pipeline in the Blue Ocean Editor
-"	Review Pipeline run details
-"	Edit a Pipeline
+*	Create a new Pipeline Job
+*	Create and run a Pipeline in the Blue Ocean Editor
+*	Review Pipeline run details
+*	Edit a Pipeline
+
+#### Setup Git Access
 
 In Blue Ocean click on "New Pipeline".  You'll be asked where your code will be stored; pick "Git"
 
-"	Enter the SSH (not URL) for the pipeline-intro-lab repo (ssh://git@gitserver:5022/butler/pipeline-intro-lab.git)
-"	You'll need to set up an SSH key in Gitserver this one time.  Copy the key text from the box then go into Gitserver:
-"	Select 'Your Settings' from the top pane drop down
-"	Select 'SSH/GPG Keys'
-"	Click the 'Add Key' button, give the key a name and paste in the copied text and click 'Add Key'
+*	Enter the SSH (not URL) for the pipeline-intro-lab repo: `ssh://git@gitserver:5022/butler/pipeline-intro-lab.git`
+*	You'll need to set up an SSH key in Gitserver this one time.  Copy the key text from the box then go into Gitserver:
+*	Select 'Your Settings' from the top pane drop down
+*	Select 'SSH/GPG Keys'
+*	Click the 'Add Key' button, give the key a name and paste in the copied text and click 'Add Key'
 
-"	Back in Blue Ocean click "Create Pipeline"
+#### Create a Pipeline
 
-"	The pipeline job will be created but you will get this popup:
+*	Back in Blue Ocean click "Create Pipeline"
+*	The pipeline job will be created but you will get this popup:
+*	Click "Create Pipeline"
 
-"	Click "Create Pipeline"
-
-You are now in the Blue Ocean Visual Pipeline Editor.  A base flow is displayed.  Click on the plus '+' in the editor to add three stages: "Fluffy Build", "Fluffy Test", "Fluffy Deploy".
+You are now in the Blue Ocean Visual Pipeline Editor.  A base flow is displayed.  Click on the plus '+' in the editor to add three stages: `Fluffy Build`, `Fluffy Test`, and `Fluffy Deploy`.
 
 Add a step to each stage using the "+ Add Step" button on the right pane.  Select "Print Message" from the dropdown list and put placeholder in the Message box.
 
