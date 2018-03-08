@@ -12,8 +12,8 @@ Unzip the file cloudbees-training-pipeline-intro.zip and CD into the cloudbees-t
 
 The training environment consists of three servers:
 1. [Jenkins Master](http://localhost:5000) username/password (butler/butler)
-1. [Gitserver](http://localhost:5022)username/password (butler/butler)
-1. Devbox (not used in this lab) (remove this?)
+1. [Gitserver](http://localhost:5022) username/password (butler/butler)
+
 
 The Gitserver has two repos:
 1. `butler/pipeline-intro-demo`
@@ -21,7 +21,6 @@ The Gitserver has two repos:
 
 We'll only use pipeline-intro-lab in this course.
 
-##### The demo env expires soon (need to fix this)  
 1. In your browser navigate to http://localhost:5000
 1. Goto the Jenkins master and add a license.
 1. Log into Jenkins and click Open Blue Ocean
@@ -31,6 +30,8 @@ We'll only use pipeline-intro-lab in this course.
 > Goals:
 > *	Create and run a Pipeline in the Blue Ocean Editor
 > *	Edit a Pipeline in the Blue Ocean Editor
+> *
+> * Before we begin the lab we need to create a new Pipeline, configure Jenkins to work with the repo in Gitserver, and create secure access to the repo by adding an SSH key to Gitserver.  Once we can connect to Gitserver (to save our Jenkinsfile) we'll create a basic Pipeline with three stages and dummy steps.
 
 #### Setup Git Access
 
@@ -76,6 +77,12 @@ Go back to the Fluffy Deploy stage in the GUI and see the edited step.  This cha
 > *	Add artifact archiving and test result publishing
 > *	Add parallel stages
 > *	Migrate the Pipeline to the master branch
+> *
+> * Now we will move the Pipeline to a feature branch so we can develop without impacting the existing version in the master branch.  All new development should be done in a feature branch as a best practice.  Then we'll add real content to the Pipeline: scripts to run a build, test our build and then deploy it.
+
+Let's move the pipeline to a branch so we can continue development without overwriting our working job.  Open the Pipeline in the Blue Ocean editor, click "Save", add a description then select "Commit to new branch" and call that branch simple-pipeline:
+
+The branch will be automatically created in Git and populated from the master.
 
 Open your pipeline in the Blue Ocean Visual Editor and delete all steps for all the stages.  It will show errors; ignore them.
 
@@ -85,9 +92,6 @@ Make the following additions to your stages:
 * **Fluffy Deploy** - Shell script: `./jenkins/deploy.sh staging`
 Save and run the Pipeline, check the output in Blue Ocean
 
-Let's move the pipeline to a branch so we can continue development without overwriting our working job.  Open the Pipeline in the Blue Ocean editor, click "Save", add a description then select "Commit to new branch" and call that branch simple-pipeline:
-
-The branch will be automatically created in Git and populated from the master.
 
 Now we'll add steps to archive artifacts and publish test results.
 
@@ -97,7 +101,7 @@ Add the following steps to your stages:
 
 Save the Pipeline in simple-pipeline and run; check the output in Blue Ocean.
 
-Now we'll add parallel stages.  Adding parallel stages greatly reduces run time and should be used whenever stages in a Pipeline can run concurrently.
+> * Now we'll add parallel stages to allow steps to run concurrently.  Adding parallel stages greatly reduces run time and should be used whenever stages in a Pipeline can run concurrently.  You should size your agents accordingly so that parallel jobs are not waiting on an executor.  
 
 Add four parallel stages to Fluffy Test by clicking on plus (+) sign beneath the existing stage.  Name the stages and create the steps in each as listed below:
 
