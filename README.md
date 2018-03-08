@@ -109,8 +109,8 @@ Add four parallel stages to Fluffy Test by clicking on plus (+) sign beneath the
   *	Shell script: `./jenkins/test-backend.sh`
   *	Publish Junit test result report: `target/surefire-reports/**/TEST*.xml`
 *	**Frontend**
-  *	Shell script: `./jenkins/test-frontend.sh`
-  *	Publish Junit test result report: `target/test-results/**/TEST*.xml`
+    *	Shell script: `./jenkins/test-frontend.sh`
+    *	Publish Junit test result report: `target/test-results/**/TEST*.xml`
 *	**Performance** - Shell script: `./jenkins/test-performance.sh`
 *	**Static** - Shell script: `./jenkins/test-static.sh`
 
@@ -140,10 +140,10 @@ Name= `Java 8`, Includes = `target/**` as shown:
 
 Using the Code Pipeline Editor add a step at the start of each of the Test and Deploy stages to unstash the files.
 
-Now set the parallel steps to execute on different agents to improve performance.  We'll double the workload but should only see a marginal increase in execution time.  In the Pipeline Code Editor (⌘-s) rename the existing Fluffy Test stages to xxJava7 (e.g. BackendJava7).  Add four more parallel stages named xxJava8 (e.g. BackendJava8).
+Now set the parallel steps to execute on different agents to improve performance.  We'll double the workload but should only see a marginal increase in execution time.  In the Pipeline Code Editor (⌘-s) rename the existing Fluffy Test stages to xxJava8 (e.g. BackendJava8).  Add four more parallel stages named xxJava8 (e.g. BackendJava7).
 
 For each of the new Test stages
-1. set to run on the corresponding node
+1. set to run on the corresponding node ('java7')
 1. unstash the files where needed for each node
  (Note: a simple way to do this is make the change once in the Visual Editor then use the code editor to copy those changes.)
 
