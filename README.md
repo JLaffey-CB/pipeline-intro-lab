@@ -169,7 +169,7 @@ Now we'll add a checkpoint to the Confirm Deploy stage before the user input ste
 Restart the Pipeline from this checkpoint and go back into Blue Ocean and the job output.  You'll be back at the user input.  Select Yes and the Pipeline will complete successfully.
 *Note: Checkpoints can be inefficient as they hold agent resources.  Use only when necessary and always with a timeout parameter in the step so the resources aren't held indefinitely.*
 
- Save the Pipeline to the master branch.  This is now a complete, working CI/CD pipeline!  [See Appendix D](https://github.com/JLaffey-CB/pipeline-intro-lab/blob/master/docs/section4solution.txt) for complete solution.
+ Save the Pipeline to the master branch.  This is now a complete, working CI/CD pipeline!  [See Appendix D](./docs/section4solution.txt) for complete solution.
 
 ### Section 5 The Sexy Extras!
 
