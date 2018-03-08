@@ -67,7 +67,7 @@ Make the following changes to your stages:
 
 Save the pipeline.  View the output in Blue Ocean to see the steps executed.  Now use the Blue Ocean "Pipeline Code Editor" to update the Fluffy Deploy step from Another Placeholder to Edited Placeholder.  Access the Code Editor by hitting ctrl-s(cmd-s), type your changes and hit Update.
 
-Go back to the Fluffy Deploy stage in the GUI and see the edited step.  This change is not saved!  Click Save to commit the changes to the master repo.  See [Appendix A](https://github.com/JLaffey-CB/pipeline-intro-lab/blob/master/docs/section1solution.txt) for complete solution.
+Go back to the Fluffy Deploy stage in the GUI and see the edited step.  This change is not saved!  Click Save to commit the changes to the master repo.  See [Appendix A](./docs/section1solution.txt) for complete solution.
 
 ### Section 2  Create a Pipeline with Parallel Stages
 
@@ -115,7 +115,7 @@ Add four parallel stages to Fluffy Test by clicking on plus (+) sign beneath the
 
 Save the Pipeline in 'simple-pipeline' and run; check the output in Blue Ocean. Notice the total execution time compared to the much simpler versions executed earlier.
 
-Now migrate the Pipeline to the master branch by saving it and choosing "Commit to new branch" and putting in master.   See [Appendix B](https://github.com/JLaffey-CB/pipeline-intro-lab/blob/master/docs/section2solution.txt) for complete solution.
+Now migrate the Pipeline to the master branch by saving it and choosing "Commit to new branch" and putting in master.   See [Appendix B](./docs/section2solution.txt) for complete solution.
 
 ### Section 3 Multi-environment Pipeline
 
@@ -146,7 +146,7 @@ For each of the new Test stages
 1. unstash the files where needed for each node
  (Note: a simple way to do this is make the change once in the Visual Editor then use the code editor to copy those changes.)
 
-Now update Fluffy Deploy to use node java7 and unstash the appropriate files.  Save your changes and run the Pipeline.  Note the duration: it has likely gone down even though we've added more tasks and doubled the stages.  See [Appendix C](https://github.com/JLaffey-CB/pipeline-intro-lab/blob/master/docs/section3solution.txt) for complete solution.
+Now update Fluffy Deploy to use node java7 and unstash the appropriate files.  Save your changes and run the Pipeline.  Note the duration: it has likely gone down even though we've added more tasks and doubled the stages.  See [Appendix C](./docs/section3solution.txt) for complete solution.
 
 
 ### Section 4
