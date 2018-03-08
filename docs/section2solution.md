@@ -1,4 +1,4 @@
-Here is the Pipeline file contents for Section 2:
+Here is the solution `Jenkinsfile` for Section 2:
 
     pipeline {
       agent any
