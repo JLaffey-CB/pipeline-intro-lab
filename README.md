@@ -25,7 +25,6 @@ We'll only use pipeline-intro-lab in this course.
 1. Goto the Jenkins master and add a license.
 1. Log into Jenkins and click Open Blue Ocean
 
-## Part One
 
 > Goals:
 > *	Create and run a Pipeline in the Blue Ocean Editor
@@ -126,7 +125,7 @@ Now migrate the Pipeline to the master branch by saving it and choosing "Commit 
 > *	Stash and unstash files from one stage to the next
 
 
->   Now we're starting to add more advanced functionality.  We can specify a specific agents or agents by label for execution of the entire Pipeline and for individual steps.  This can be useful for running builds in QA vs. Production or leveraging parameters (discussed later) to control where steps execute.  We'll use the Git stashing functionality, pause for user input (such as specifying an environment for deployment) and create a checkpoint so a failed job can be restarted.
+>   Now we're starting to add more advanced functionality.  We can specify a specific agents or agents by label for execution of the entire Pipeline and for individual steps.  This can be useful for running builds in QA vs. Production or leveraging parameters (discussed later) to control where steps execute.  We'll also add the Git stashing functionality to save the job state.  Then we'll double the number of stages and run our build in Java 7 and Java 8 environments simultaneously.
 
 We need to create a new branch to work in.  Open the Jenkinsfile in the Blue Ocean Visual Editor and save it to a new branch called multi-env-pipeline.
 
@@ -140,7 +139,7 @@ Name= `Java 8`, Includes = `target/**` as shown:
 
 Using the Code Pipeline Editor add a step at the start of each of the Test and Deploy stages to unstash the files.
 
-Now set the parallel steps to execute on different agents to improve performance.  We'll double the workload but should only see a marginal increase in execution time.  In the Pipeline Code Editor (⌘-s) rename the existing Fluffy Test stages to xxJava8 (e.g. BackendJava8).  Add four more parallel stages named xxJava8 (e.g. BackendJava7).
+Now set the parallel steps to execute on different agents to improve performance.  We'll double the workload but should only see a marginal increase in execution time.  In the Pipeline Code Editor (⌘-s) rename the existing Fluffy Test stages to xxJava8 (e.g. BackendJava8).  Add four more parallel stages named xxJava7 (e.g. BackendJava7).
 
 For each of the new Test stages
 1. set to run on the corresponding node ('java7')
@@ -149,7 +148,6 @@ For each of the new Test stages
 
 Now update Fluffy Deploy to use node java7 and unstash the appropriate files.  Save your changes and run the Pipeline.  Note the duration: it has likely gone down even though we've added more tasks and doubled the stages.  See Appendix C for complete solution.
 
-## Part Two
 
 ### Section 4
 
@@ -157,8 +155,8 @@ Now update Fluffy Deploy to use node java7 and unstash the appropriate files.  S
 > *	Wait for user input before deploying
 > *	Add a checkpoint from which the Pipeline can be restarted
 > * Migrate the Pipeline to the master branch
-
-It's often useful to include a gate in a Pipeline to get user input.  This could be to approve a build for final deployment, specify an environment where the build should happen or other times human interaction is needed.  In this exercise we'll wait for user approval before proceeding with the deployment.
+>
+>   It's often useful to include a gate in a Pipeline to get user input.  This could be to approve a build for final deployment, specify an environment where the build should happen or other times human interaction is needed.  In this exercise we'll wait for user approval before proceeding with the deployment.
 
 In the Blue Ocean Visual Editor open the multi-env-pipeline job add a new stage called Confirm Deploy.  Add a step "Wait for interactive input" with the message Is the build okay to deploy? and set Ok as Yes
 
@@ -182,7 +180,7 @@ Note: Checkpoints can be inefficient as they hold agent resources.  Use only whe
 
 There are more advanced function available in Pipelines that let you build intuitive and flexible jobs, taking steps only when necessary and keeping you informed of job progress.  Leverage these options to really make your Pipelines automated and streamline your CI/CD process.
 
-Post Sections: Post sections define additional steps to run when a Pipeline or stage completes.  Post sections are conditionalized, allowing for steps to be run only in defined circumstances.  The available post-conditions are always, changed, failure, success, unstable and aborted.
+>Post Sections: Post sections define additional steps to run when a Pipeline or stage completes.  Post sections are conditionalized, allowing for steps to be run only in defined circumstances.  The available post-conditions are always, changed, failure, success, unstable and aborted.
 
 We'll add a post section to move the archiving, stashing and JUnit tests to make them conditional depending on the result of the stage.  First save the Pipeline to a new branch called finished-pipeline.  Using Code Pipeline editor (the Visual Editor does not support post steps yet) edit the stages as below:
 
