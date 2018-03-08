@@ -214,7 +214,7 @@ Now update the shell script `./jenkins/deploy.sh` step to use the parameter inst
 
 Note that the string is now in double quotes because of the parameter inclusion.
 
-Save and run the Pipeline.  After a successful test migrate the branch to master and run.  This time the when directive will be true and the Pipeline will pause for input.  See [Appendix E](https://github.com/JLaffey-CB/pipeline-intro-lab/blob/master/docs/section5solution.txt) for the solution.
+Save and run the Pipeline.  After a successful test migrate the branch to master and run.  This time the when directive will be true and the Pipeline will pause for input.  See [Appendix E](./docs/section5solution.txt) for the solution.
 
 ## Documentation
 
