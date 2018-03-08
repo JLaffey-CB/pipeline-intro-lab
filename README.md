@@ -25,7 +25,7 @@ We'll only use pipeline-intro-lab in this course.
 1. Goto the Jenkins master and add a license.
 1. Log into Jenkins and click Open Blue Ocean
 
-(images/LeftPane.png)
+!(images/LeftPane.png)
 
 > Goals:
 > *	Create and run a Pipeline in the Blue Ocean Editor
