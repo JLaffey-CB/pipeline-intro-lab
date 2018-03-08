@@ -30,8 +30,8 @@ We'll only use pipeline-intro-lab in this course.
 > Goals:
 > *	Create and run a Pipeline in the Blue Ocean Editor
 > *	Edit a Pipeline in the Blue Ocean Editor
-> *
-> * Before we begin the lab we need to create a new Pipeline, configure Jenkins to work with the repo in Gitserver, and create secure access to the repo by adding an SSH key to Gitserver.  Once we can connect to Gitserver (to save our Jenkinsfile) we'll create a basic Pipeline with three stages and dummy steps.
+>
+>  Before we begin the lab we need to create a new Pipeline, configure Jenkins to work with the repo in Gitserver, and create secure access to the repo by adding an SSH key to Gitserver.  Once we can connect to Gitserver (to save our Jenkinsfile) we'll create a basic Pipeline with three stages and dummy steps.
 
 #### Setup Git Access
 
@@ -77,12 +77,12 @@ Go back to the Fluffy Deploy stage in the GUI and see the edited step.  This cha
 > *	Add artifact archiving and test result publishing
 > *	Add parallel stages
 > *	Migrate the Pipeline to the master branch
-> *
-> * Now we will move the Pipeline to a feature branch so we can develop without impacting the existing version in the master branch.  All new development should be done in a feature branch as a best practice.  Then we'll add real content to the Pipeline: scripts to run a build, test our build and then deploy it.
+>
+>   We need to move the Jenkinsfile to another branch so we can develop without impacting the existing version in master.  All new development should be done in a feature branch as a best practice.  Then we'll add real content to the Pipeline: scripts to run a build, test our build and then deploy it.
 
-Let's move the pipeline to a branch so we can continue development without overwriting our working job.  Open the Pipeline in the Blue Ocean editor, click "Save", add a description then select "Commit to new branch" and call that branch simple-pipeline:
+We can move the Pipeline Jenkinsfile and create a new branch from within the Blue Ocean editor.  Click "Save", add a description then select "Commit to new branch" and call the new branch 'simple-pipeline'.
 
-The branch will be automatically created in Git and populated from the master.
+If you refresh your Gitserver session you will that 'simple-pipeline'has been created and populated from master.  
 
 Open your pipeline in the Blue Ocean Visual Editor and delete all steps for all the stages.  It will show errors; ignore them.
 
@@ -90,8 +90,8 @@ Make the following additions to your stages:
 * **Fluffy Build** - Shell script: `./jenkins/build.sh`
 * **Fluffy Test** - Shell script: `./jenkins/test-all.sh`
 * **Fluffy Deploy** - Shell script: `./jenkins/deploy.sh staging`
-Save and run the Pipeline, check the output in Blue Ocean
 
+Save and run the Pipeline, check the output in Blue Ocean.  You can see each stage run and view the output from each stage individually.
 
 Now we'll add steps to archive artifacts and publish test results.
 
@@ -99,9 +99,9 @@ Add the following steps to your stages:
 *	**Fluffy Build** - Archive the artifacts: `target/*.jar`
 *	**Fluffy Test** - Publish JUint test result report: `target/**/TEST*.xml`
 
-Save the Pipeline in simple-pipeline and run; check the output in Blue Ocean.
+Save the Pipeline in 'simple-pipeline' and run; check the output in Blue Ocean.
 
-> * Now we'll add parallel stages to allow steps to run concurrently.  Adding parallel stages greatly reduces run time and should be used whenever stages in a Pipeline can run concurrently.  You should size your agents accordingly so that parallel jobs are not waiting on an executor.  
+>  Now we'll add parallel stages to allow steps to run concurrently.  Adding parallel stages greatly reduces run time and should be used whenever stages in a Pipeline can run concurrently.  You should size your agents accordingly so that parallel jobs are not waiting on an executor.  Once we finished and test, we'll migrate our changes to master.
 
 Add four parallel stages to Fluffy Test by clicking on plus (+) sign beneath the existing stage.  Name the stages and create the steps in each as listed below:
 
@@ -114,7 +114,7 @@ Add four parallel stages to Fluffy Test by clicking on plus (+) sign beneath the
 *	**Performance** - Shell script: `./jenkins/test-performance.sh`
 *	**Static** - Shell script: `./jenkins/test-static.sh`
 
-Save the Pipeline in simple-pipeline and run; check the output in Blue Ocean. Notice the total execution time compared to the much simpler versions executed earlier.
+Save the Pipeline in 'simple-pipeline' and run; check the output in Blue Ocean. Notice the total execution time compared to the much simpler versions executed earlier.
 
 Now migrate the Pipeline to the master branch by saving it and choosing "Commit to new branch" and putting in master.   See appendix B for complete solution.
 
@@ -124,8 +124,9 @@ Now migrate the Pipeline to the master branch by saving it and choosing "Commit 
 > *	Create and run a Pipeline in another feature branch
 > *	Control the agent where the Pipeline or steps execute
 > *	Stash and unstash files from one stage to the next
-> *	Wait for user input before proceeding
-> *	Add a checkpoint from which the Pipeline can be restarted
+
+
+>   Now we're starting to add more advanced functionality.  We can specify a specific agents or agents by label for execution of the entire Pipeline and for individual steps.  This can be useful for running builds in QA vs. Production or leveraging parameters (discussed later) to control where steps execute.  We'll use the Git stashing functionality, pause for user input (such as specifying an environment for deployment) and create a checkpoint so a failed job can be restarted.
 
 We need to create a new branch to work in.  Open the Jenkinsfile in the Blue Ocean Visual Editor and save it to a new branch called multi-env-pipeline.
 
@@ -135,6 +136,7 @@ We need to create a new branch to work in.  Open the Jenkinsfile in the Blue Oce
 We can also control where individual stages execute.  Under each of the stages set the node to `java8`.  Under the Fluffy Build stage add a step to stash files:
 
 Name= `Java 8`, Includes = `target/**` as shown:
+[image]
 
 Using the Code Pipeline Editor add a step at the start of each of the Test and Deploy stages to unstash the files.
 
