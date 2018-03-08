@@ -67,7 +67,7 @@ Make the following changes to your stages:
 
 Save the pipeline.  View the output in Blue Ocean to see the steps executed.  Now use the Blue Ocean "Pipeline Code Editor" to update the Fluffy Deploy step from Another Placeholder to Edited Placeholder.  Access the Code Editor by hitting ctrl-s(cmd-s), type your changes and hit Update.
 
-Go back to the Fluffy Deploy stage in the GUI and see the edited step.  This change is not saved!  Click Save to commit the changes to the master repo.  See [Appendix A](https://github.com/JLaffey-CB/pipeline-intro-lab/docs/section1solutions.txt) for complete solution.
+Go back to the Fluffy Deploy stage in the GUI and see the edited step.  This change is not saved!  Click Save to commit the changes to the master repo.  See [Solution 1](./docs/section1solution.md) for complete solution.
 
 ### Section 2  Create a Pipeline with Parallel Stages
 
