@@ -160,7 +160,8 @@ We need to create a new branch to work in.  Open the Jenkinsfile in the Blue Oce
 
 We can also control where individual stages execute.  Under each of the stages set the node to `java8`.  Under the Fluffy Build stage add a step to stash files:
 
-Name= `Java 8`, Includes = `target/**` as shown:
+Name= `Java 8`, Includes = `target/**` as shown
+
 ![Stash Step](./images/StashStep.png)
 
 Using the Code Pipeline Editor add a step at the start of each of the Test and Deploy stages to unstash the files.
