@@ -37,25 +37,40 @@ We'll only use pipeline-intro-lab in this course.
 
 In Blue Ocean click on "New Pipeline".  You'll be asked where your code will be stored; pick "Git"
 
+![store code](./images/StoreCode.png)
+
 *	Enter the SSH (not URL) for the pipeline-intro-lab repo: `ssh://git@gitserver:5022/butler/pipeline-intro-lab.git`
 *	You'll need to set up an SSH key in Gitserver this one time.  Copy the key text from the box then go into Gitserver:
 *	Select 'Your Settings' from the top pane drop down
 *	Select 'SSH/GPG Keys'
 *	Click the 'Add Key' button, give the key a name and paste in the copied text and click 'Add Key'
 
+![SSH Key](./images/SSHKey.png)
+
 #### Create a Pipeline
 
 *	Back in Blue Ocean click "Create Pipeline"
 *	The pipeline job will be created but you will get this popup:
+
+![Create Pipeline](./images/CreatePipeline.png)
+
 *	Click "Create Pipeline"
 
 You are now in the Blue Ocean Visual Pipeline Editor.  A base flow is displayed.  Click on the plus '+' in the editor to add three stages: `Fluffy Build`, `Fluffy Test`, and `Fluffy Deploy`.
 
+![Stage name](./images/StageName1.png)
+
 Add a step to each stage using the "+ Add Step" button on the right pane.  Select "Print Message" from the dropdown list and put placeholder in the Message box.
+
+![Add Step](./images/AddStep.png)
 
 Save the pipeline in master branch.
 
+![Initial Save](./images/InitialSave.png)
+
 The pipeline will run and you can now see the Jenkinsfile in the repo.  Now we'll make it actually do something.  Click pencil icon to the left of the branch to return to the visual editor
+
+![Pipeline Run](./images/PipelineRun.png)
 
 #### Edit a Pipeline
 
@@ -67,6 +82,8 @@ Make the following changes to your stages:
   * Shell script: echo Another Placeholder
 
 Save the pipeline.  View the output in Blue Ocean to see the steps executed.  Now use the Blue Ocean "Pipeline Code Editor" to update the Fluffy Deploy step from Another Placeholder to Edited Placeholder.  Access the Code Editor by hitting ctrl-s(cmd-s), type your changes and hit Update.
+
+![Code Edit](./images/CodeEdit1.png)
 
 Go back to the Fluffy Deploy stage in the GUI and see the edited step.  This change is not saved!  Click Save to commit the changes to the master repo.  
 
@@ -83,6 +100,8 @@ Go back to the Fluffy Deploy stage in the GUI and see the edited step.  This cha
 >   We need to move the Jenkinsfile to another branch so we can develop without impacting the existing version in master.  All new development should be done in a feature branch as a best practice.  Then we'll add real content to the Pipeline: scripts to run a build, test our build and then deploy it.
 
 We can move the Pipeline Jenkinsfile and create a new branch from within the Blue Ocean editor.  Click "Save", add a description then select "Commit to new branch" and call the new branch 'simple-pipeline'.
+
+![New Branch](./images/SaveNewBranch.png)
 
 If you refresh your Gitserver session you will that 'simple-pipeline'has been created and populated from master.  
 
@@ -137,10 +156,12 @@ We need to create a new branch to work in.  Open the Jenkinsfile in the Blue Oce
 1. Edit the Pipeline's agent to use Node `java7` (this is included in the lab environment.)
 1. Save and run the Pipeline.  In the logs you'll see it now always runs on the node named `jdk7-node`.
 
+![JDK7](./images/jdk7Node.png)
+
 We can also control where individual stages execute.  Under each of the stages set the node to `java8`.  Under the Fluffy Build stage add a step to stash files:
 
 Name= `Java 8`, Includes = `target/**` as shown:
-[image]
+![Stash Step](./images/StashStep.png)
 
 Using the Code Pipeline Editor add a step at the start of each of the Test and Deploy stages to unstash the files.
 
@@ -166,11 +187,17 @@ Now update Fluffy Deploy to use node java7 and unstash the appropriate files.  S
 
 In the Blue Ocean Visual Editor open the multi-env-pipeline job add a new stage called Confirm Deploy.  Add a step "Wait for interactive input" with the message Is the build okay to deploy? and set Ok as Yes
 
+![User Input](./images/UserInput.png)
+
 Now bring the job up in the Blue Ocean Pipeline Code editor and move the Fluffy Deploy stage after Confirm Deploy.  This will prevent the Fluffy Deploy stage from running unless a positive response is received from Confirm Deploy.  Save and run the job, notice the input request:
+
+![User Input 2](./images/UserInput2.png)
 
 Click Yes and the Pipeline will complete successfully; click Abort and the pipeline will fail and end.  (This is an excellent place for a post step.)
 
 Now we'll add a checkpoint to the Confirm Deploy stage before the user input step.  This will allow the Pipeline to be saved and restarted.  From the Blue Ocean Visual editor select "Capture checkpoint of execution state from which pipeline can be restarted later" and give it the name 'Ready to Deploy'.  The syntax is:  checkpoint 'Ready to Deploy' Run the Pipeline and chose 'abort' at the input.  Now exit Blue Ocean and find Checkpoints on the left pane.  You'll see the checkpoint you just created.
+
+![checkpoint](./images/CheckPoint.png)
 
 Restart the Pipeline from this checkpoint and go back into Blue Ocean and the job output.  You'll be back at the user input.  Select Yes and the Pipeline will complete successfully.
 *Note: Checkpoints can be inefficient as they hold agent resources.  Use only when necessary and always with a timeout parameter in the step so the resources aren't held indefinitely.*
